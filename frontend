@@ -1,0 +1,76 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.ArrayList;
+
+class Patient {
+    int id;
+    String name;
+    String disease;
+
+    Patient(int id, String name, String disease) {
+        this.id = id;
+        this.name = name;
+        this.disease = disease;
+    }
+}
+
+public class HospitalGUI extends JFrame {
+    ArrayList<Patient> list = new ArrayList<>();
+
+    JTextField idField, nameField, diseaseField;
+    JTextArea output;
+
+    HospitalGUI() {
+        setTitle("Hospital Management System");
+        setSize(400, 400);
+        setLayout(new FlowLayout());
+
+        add(new JLabel("ID:"));
+        idField = new JTextField(15);
+        add(idField);
+
+        add(new JLabel("Name:"));
+        nameField = new JTextField(15);
+        add(nameField);
+
+        add(new JLabel("Disease:"));
+        diseaseField = new JTextField(15);
+        add(diseaseField);
+
+        JButton addBtn = new JButton("Add Patient");
+        JButton showBtn = new JButton("Show Patients");
+
+        output = new JTextArea(10, 30);
+        add(addBtn);
+        add(showBtn);
+        add(new JScrollPane(output));
+
+        addBtn.addActionListener(e -> {
+            int id = Integer.parseInt(idField.getText());
+            String name = nameField.getText();
+            String disease = diseaseField.getText();
+
+            list.add(new Patient(id, name, disease));
+            output.setText("Patient Added!\n");
+            
+            idField.setText("");
+            nameField.setText("");
+            diseaseField.setText("");
+        });
+
+        showBtn.addActionListener(e -> {
+            output.setText("");
+            for (Patient p : list) {
+                output.append(p.id + "  " + p.name + "  " + p.disease + "\n");
+            }
+        });
+
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new HospitalGUI();
+    }
+}
