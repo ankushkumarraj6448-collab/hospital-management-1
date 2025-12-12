@@ -1,0 +1,48 @@
+import java.util.*;
+
+public class HospitalBackend {
+
+    // Patient class
+    static class Patient {
+        int id;
+        String name;
+        String disease;
+
+        Patient(int id, String name, String disease) {
+            this.id = id;
+            this.name = name;
+            this.disease = disease;
+        }
+    }
+
+    // Backend (Database simulation using ArrayList)
+    static class Hospital {
+        ArrayList<Patient> patients = new ArrayList<>();
+
+        void addPatient(int id, String name, String disease) {
+            patients.add(new Patient(id, name, disease));
+            System.out.println("Patient Added!");
+        }
+
+        void showPatients() {
+            if (patients.isEmpty()) {
+                System.out.println("No Patients Available.");
+                return;
+            }
+            for (Patient p : patients) {
+                System.out.println(p.id + "  " + p.name + "  " + p.disease);
+            }
+        }
+    }
+
+    // Test backend
+    public static void main(String[] args) {
+        Hospital h = new Hospital();
+
+        h.addPatient(101, "Rohit", "Fever");
+        h.addPatient(102, "Neha", "Cold");
+
+        System.out.println("\nPatient List:");
+        h.showPatients();
+    }
+}
